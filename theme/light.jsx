@@ -9,7 +9,7 @@ const gradientH = '#79B2D1'
 const sucess = '#E7EDFD'
 const Tsuccess = '#2400FF'
 
-const err = '#FFD8D8'
+const err = '#FFE8E8'
 const Terr = '#FF0000'
 
 export {primary, secondary, third, grey, gradientH, gradientL, sucess, Tsuccess, err, Terr}
