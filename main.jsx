@@ -1,8 +1,8 @@
-import Home from "./screens/user/home";
 import { useFonts } from "expo-font";
 import { Text } from "react-native";
 import CreateStore, { ImageUpload } from "./screens/dashboard/createStore";
 import { createStackNavigator } from '@react-navigation/stack';
+import BottomNav from "./navigators/bottomNavigation";
 
 const MainStack = createStackNavigator();
 
@@ -17,7 +17,7 @@ export default function Main(){
     }
     return(
         <MainStack.Navigator>
-            <MainStack.Screen name="Home" component={Home} options={{headerShown:false}} />
+            <MainStack.Screen name="bottomnav" component={BottomNav} options={{headerShown:false}} />
             <MainStack.Screen name="createstore" component={CreateStore} options={{headerShown:false}} />
             <MainStack.Screen name="imageupload" component={ImageUpload} options={{headerShown:false}} />
         </MainStack.Navigator>
