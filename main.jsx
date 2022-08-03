@@ -1,6 +1,7 @@
 import Home from "./screens/user/home";
 import { useFonts } from "expo-font";
 import { Text } from "react-native";
+import CreateStore, { ImageUpload } from "./screens/dashboard/createStore";
 
 export default function Main(){
     const [loaded] = useFonts({
@@ -12,6 +13,6 @@ export default function Main(){
         return <Text>Loading</Text>
     }
     return(
-        <Home />
+        <CreateStore />
     )
 }
