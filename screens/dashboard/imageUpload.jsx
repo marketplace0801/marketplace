@@ -1,8 +1,9 @@
 import { View, TouchableOpacity, Text, StyleSheet, StatusBar, TextInput, ScrollView, Image } from 'react-native'
-import { err, gradientH, gradientL, grey, primary, secondary, Terr, third } from "../../theme/light";
+import { err, gradientL, grey, primary, secondary, Terr, third } from "../../theme/light";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as ImagePicker from 'expo-image-picker'
 import { useState } from 'react';
+import ImageOptions from '../../components/imageOptions';
 
 
 //image upload page
@@ -14,8 +15,9 @@ export default function ImageUpload ({ route, navigation }) {
     const [uri, setUri] = useState([])
     const [checked, setChecked] = useState(checked)
     const [err, setErr] = useState(false)
+    const [popup, setPopup] = useState(popup)
 
-    const pickImage = async () => {
+    const pickGallery = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -25,6 +27,7 @@ export default function ImageUpload ({ route, navigation }) {
         if (!result.cancelled) {
             setImage(result.uri);
             setUri(result.uri.split('/'));
+            setPopup(!popup)
         }
     }
     return (
@@ -42,13 +45,14 @@ export default function ImageUpload ({ route, navigation }) {
                     Select Your Image
                 </Text>
             </View>
-            <TouchableOpacity onPress={() => pickImage()} activeOpacity={0.7} style={styles.imgBox}>
+            <TouchableOpacity onPress={() => setPopup(!popup)} activeOpacity={0.9} style={styles.imgBox}>
                 <Image
                     source={{
                         uri: image
                     }}
                     style={styles.img}
                 />
+                { popup ? <ImageOptions gallery={pickGallery} /> : null}
                 <View style={styles.tag}>
                     <Text style={styles.tagtxt}>Change Image</Text>
                 </View>
@@ -101,6 +105,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         borderRadius: 25,
+        position:'relative'
     },
     tag: {
         width: 'auto',
