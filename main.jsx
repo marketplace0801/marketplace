@@ -1,6 +1,7 @@
 import { useFonts } from "expo-font";
 import { Text } from "react-native";
-import CreateStore, { ImageUpload } from "./screens/dashboard/createStore";
+import CreateStore from "./screens/dashboard/createStore";
+import ImageUpload from "./screens/dashboard/imageUpload";
 import { createStackNavigator } from '@react-navigation/stack';
 import BottomNav from "./navigators/bottomNavigation";
 
