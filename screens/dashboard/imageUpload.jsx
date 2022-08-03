@@ -1,35 +1,26 @@
 import { View, TouchableOpacity, Text, StyleSheet, StatusBar, TextInput, ScrollView, Image } from 'react-native'
 import { err, gradientL, grey, primary, secondary, Terr, third } from "../../theme/light";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import * as ImagePicker from 'expo-image-picker'
 import { useState } from 'react';
 import ImageOptions from '../../components/imageOptions';
 
 
 //image upload page
-export default function ImageUpload ({ route, navigation }) {
+export default function ImageUpload({ route, navigation }) {
     const { shop, addr, desc, type, checkField } = route.params;
 
     const randomImage = 'https://picsum.photos/200/300'
-    const [image, setImage] = useState(randomImage)
-    const [uri, setUri] = useState([])
+
+    const [selectedImage, setSelectedImage] = useState({
+        image: randomImage,
+        imagenmae: randomImage,
+    })
+    const [popup, setPopup] = useState(popup)
     const [checked, setChecked] = useState(checked)
     const [err, setErr] = useState(false)
-    const [popup, setPopup] = useState(popup)
 
-    const pickGallery = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.cancelled) {
-            setImage(result.uri);
-            setUri(result.uri.split('/'));
-            setPopup(!popup)
-        }
-    }
+
+
     return (
         <View style={styles.container}>
             <View style={styles.topbar}>
@@ -48,18 +39,18 @@ export default function ImageUpload ({ route, navigation }) {
             <TouchableOpacity onPress={() => setPopup(!popup)} activeOpacity={0.9} style={styles.imgBox}>
                 <Image
                     source={{
-                        uri: image
+                        uri: selectedImage.image
                     }}
                     style={styles.img}
                 />
-                { popup ? <ImageOptions gallery={pickGallery} /> : null}
+                {popup ? <ImageOptions setSelectedImage={setSelectedImage} setPopup={setPopup} /> : null}
                 <View style={styles.tag}>
                     <Text style={styles.tagtxt}>Change Image</Text>
                 </View>
             </TouchableOpacity>
             <Text style={[styles.lable, { marginTop: 15, marginLeft: 5, fontFamily: 'openMed', color: grey }]}>
                 Selected Image : {
-                    image != randomImage ? uri[uri.length - 1] : 'random_image.jpg'
+                    selectedImage.imagenmae != randomImage ? selectedImage.imagename : 'random_image.jpg'
                 }
             </Text>
             <View style={styles.check}>
@@ -75,8 +66,11 @@ export default function ImageUpload ({ route, navigation }) {
                     our terms and conditions
                 </Text>
             </View>
+
+
+            {/* your output object */}
             <TouchableOpacity style={checked ? styles.submit : [styles.submit, { backgroundColor: 'lightblue' }]} disabled={!checked} onPress={() => console.log(
-                { shop, desc, addr, type, image }
+                { shop, desc, addr, type, image: selectedImage.image }
             )}>
                 <Text style={styles.btnT}>Create Store</Text>
             </TouchableOpacity>
@@ -105,7 +99,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         borderRadius: 25,
-        position:'relative'
+        position: 'relative'
     },
     tag: {
         width: 'auto',
