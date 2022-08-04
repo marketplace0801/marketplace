@@ -7,14 +7,14 @@ import Input from '../../components/input';
 
 //main creation page
 export default function CreateStore({navigation}){
-    const [shop, setShop] = useState('')
-    const [addr, setAddr] = useState('')
-    const [desc, setDesc] = useState('')
-    const [type, setType] = useState('')
+    const [shopname, setShop] = useState('')
+    const [loaction, setAddr] = useState('')
+    const [description, setDesc] = useState('')
+    const [category, setType] = useState('')
 
 
     const checkField = () => {
-        if (shop === '' | addr === '' | desc === '' | type === ''){
+        if (shopname === '' | loaction === '' | description === '' | category === ''){
             return true
         }else{
             return false
@@ -41,12 +41,12 @@ export default function CreateStore({navigation}){
                     online with us 
                 </Text>
             </View>
-            <Input state={shop} setState={setShop} label="Bussiness Name" placeholder="Tip: Keep it simple and unique"/>
-            <Input state={addr} setState={setAddr} type={'inpbox'} label="Bussiness Address" />
-            <Input state={desc} setState={setDesc} type={'inpbox'} label="Description" />
-            <Input state={type} setState={setType} type={'inp'} label="Type" placeholder="Ex: Wearables, Food, Furniture.." />
+            <Input state={shopname} setState={setShop} label="Bussiness Name" placeholder="Tip: Keep it simple and unique"/>
+            <Input state={loaction} setState={setAddr} type={'inpbox'} label="Bussiness Address" />
+            <Input state={description} setState={setDesc} type={'inpbox'} label="Description" />
+            <Input state={category} setState={setType} type={'inp'} label="Type" placeholder="Ex: Wearables, Food, Furniture.." />
             <TouchableOpacity style={styles.submit} onPress={() => navigation.navigate('imageupload', {
-                shop, addr, desc, type, checkField
+                shopname, loaction, description, category, checkField
             })}>
                 <Text style={styles.btnT}>Next</Text>
                 <Ionicons name="chevron-forward-outline" size={20} color={secondary} />

@@ -5,16 +5,21 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Banner from "../../components/banner";
 import { categories, data } from "./fakedata";
 import Category from "../../components/category";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "../../components/homebar";
 import HomeCard from "../../components/homeCard";
+import { useSelector } from "react-redux";
+
+
 
 export default function Home(){
     const [selected, setSelected] = useState(1)
     const [notification, setNotification] = useState(true)
 
-    return(
-        <ScrollView style={styles.container} 
+    const { shops } = useSelector((state) => state.allshops)
+
+    return (
+        <ScrollView style={styles.container}
             showsVerticalScrollIndicator={false}>
             <View style={styles.topbar}>
                 <Text style={styles.title}>Market Place</Text>
@@ -22,7 +27,7 @@ export default function Home(){
                     {
                         notification ? (
                             <View style={styles.bub} />
-                        ): null
+                        ) : null
                     }
                     <Ionicons name="notifications-outline" size={25} color={third} />
                 </TouchableOpacity>
@@ -45,7 +50,7 @@ export default function Home(){
                 <FlatList
                     //pass the api data
                     data={categories}
-                    renderItem={(item) => <Category item={item} setSelected={setSelected} selected={selected}/>}
+                    renderItem={(item) => <Category item={item} setSelected={setSelected} selected={selected} />}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     decelerationRate={0}
@@ -55,9 +60,9 @@ export default function Home(){
             </View>
             <SearchBar />
             <View>
-                <FlatList 
-                    data={data}
-                    renderItem={(item) => <HomeCard item={item}/>}
+                <FlatList
+                    data={shops != undefined ? shops.allshops : null }
+                    renderItem={(item) => <HomeCard item={item} />}
                     style={{ marginTop: 10, paddingRight: 20 }}
                     showsVerticalScrollIndicator={false}
                 />

@@ -1,6 +1,7 @@
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { secondary, third } from "../theme/light";
-import { captureCam, pickGallery } from './imagePicker';
+import { captureCam, pickGallery } from './imagepicker';
+
 
 export default function ImageOptions({ setSelectedImage, setPopup }) {
     return (

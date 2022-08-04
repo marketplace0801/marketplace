@@ -3,7 +3,8 @@ import { err, gradientL, grey, primary, secondary, Terr, third } from "../../the
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
 import ImageOptions from '../../components/imageOptions';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { CreateStore } from '../../redux/createStore/actions'
 
 //image upload page
 export default function ImageUpload({ route, navigation }) {
@@ -13,14 +14,29 @@ export default function ImageUpload({ route, navigation }) {
 
     const [selectedImage, setSelectedImage] = useState({
         image: randomImage,
+        imagename: randomImage,
         imagenmae: randomImage,
     })
     const [popup, setPopup] = useState(popup)
     const [checked, setChecked] = useState(checked)
     const [err, setErr] = useState(false)
-
-
-
+    const dispatch = useDispatch()
+    const upload = async() => {
+        let inputs = new FormData();
+        inputs.append("shopname", shopname)
+        inputs.append("location", location)
+        inputs.append("description", description)
+        inputs.append("category", category)
+        inputs.append("avatar", {
+            uri: selectedImage.image,
+            name: selectedImage.imagename
+        })
+        console.log(...inputs)
+        dispatch(CreateStore(inputs))
+    }
+    const { msg, loading } = useSelector((state) => state.createstore) 
+    console.log(msg, loading)
+    
     return (
         <View style={styles.container}>
             <View style={styles.topbar}>
@@ -66,7 +82,6 @@ export default function ImageUpload({ route, navigation }) {
                     our terms and conditions
                 </Text>
             </View>
-
 
             {/* your output object */}
             <TouchableOpacity style={checked ? styles.submit : [styles.submit, { backgroundColor: 'lightblue' }]} disabled={!checked} onPress={() => console.log(
