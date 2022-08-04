@@ -8,14 +8,13 @@ import { CreateStore } from '../../redux/createStore/actions'
 
 //image upload page
 export default function ImageUpload({ route, navigation }) {
-    const { shop, addr, desc, type, checkField } = route.params;
+    const { shopname, location, description, category, checkField } = route.params;
 
     const randomImage = 'https://picsum.photos/200/300'
 
     const [selectedImage, setSelectedImage] = useState({
         image: randomImage,
         imagename: randomImage,
-        imagenmae: randomImage,
     })
     const [popup, setPopup] = useState(popup)
     const [checked, setChecked] = useState(checked)
@@ -84,9 +83,7 @@ export default function ImageUpload({ route, navigation }) {
             </View>
 
             {/* your output object */}
-            <TouchableOpacity style={checked ? styles.submit : [styles.submit, { backgroundColor: 'lightblue' }]} disabled={!checked} onPress={() => console.log(
-                { shop, desc, addr, type, image: selectedImage.image }
-            )}>
+            <TouchableOpacity style={checked ? styles.submit : [styles.submit, { backgroundColor: 'lightblue' }]} disabled={!checked} onPress={() => upload()}>
                 <Text style={styles.btnT}>Create Store</Text>
             </TouchableOpacity>
             {

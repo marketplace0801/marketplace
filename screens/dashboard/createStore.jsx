@@ -1,7 +1,6 @@
 import { View, TouchableOpacity, Text, StyleSheet, StatusBar, TextInput, ScrollView, Image } from 'react-native'
 import {err, gradientH, gradientL, grey, primary, secondary, Terr, third } from "../../theme/light"; 
 import Ionicons from '@expo/vector-icons/Ionicons';
-import * as ImagePicker from 'expo-image-picker'
 import { useState } from 'react';
 import Input from '../../components/input';
 
